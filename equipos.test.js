@@ -1,10 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { armarEquipos, algoritmoGenetico, jugadores, puntaje, FORMACIONES } from './equipos.js';
+import { formatearResultado } from './salida.js';
 
 function validar(resultado, cantidad, lista = jugadores) {
   for (const equipo of [resultado.equipo1, resultado.equipo2]) {
     assert.equal(equipo.length, cantidad);
+    const orden = ['ARQ', 'DEF', 'MED', 'DEL'];
+    for (let i = 1; i < equipo.length; i++) {
+      assert.ok(orden.indexOf(equipo[i - 1].pos) <= orden.indexOf(equipo[i].pos));
+      if (equipo[i - 1].pos === equipo[i].pos) {
+        assert.ok(equipo[i - 1].nombre.localeCompare(equipo[i].nombre, 'es') <= 0);
+      }
+    }
     for (const [pos, n] of Object.entries(FORMACIONES[`F${cantidad}`])) {
       assert.equal(equipo.filter(j => j.pos === pos).length, n);
     }
@@ -19,6 +27,17 @@ test('lista exacta, valores de referencia y precisión del puntaje', () => {
   assert.deepEqual(jugadores.map(j => j.nombre), ['Edu','Agus','Guido','Nacho','Leo','Zapa','Cutu','Boni','Yorgiño','Naza','David','Agustín','Ale','Eli','Ariel','Santi','Antonio','Tobi']);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'Zapa')) - 7.95) < 1e-10);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'David')) - 7.75) < 1e-10);
+});
+test('columnas alineadas con nombres largos, acentos y puntajes de dos dígitos', () => {
+  const r = { equipo1: [{ pos: 'ARQ', nombre: 'Álvaro Largo', habilidad: 10, fisico: 10 }],
+    equipo2: [{ pos: 'ARQ', nombre: 'Edu', habilidad: 9, fisico: 9 }],
+    suplentes: [], total1: 10, total2: 9, diferencia: 1 };
+  const lineas = formatearResultado(r).split('\n');
+  const encabezado = lineas.find(l => l.startsWith('Pos'));
+  const filas = lineas.filter(l => l.startsWith('ARQ'));
+  assert.ok(filas.every(l => l.indexOf(l.includes('10.00') ? '10.00' : '9.00') + (l.includes('10.00') ? 5 : 4) === encabezado.length));
+  assert.ok(filas.every(l => l.indexOf(l.includes('Álvaro') ? 'Álvaro' : 'Edu') === encabezado.indexOf('Jugador')));
+  assert.match(formatearResultado(r), /Diferencia: 1\.00\nSuplentes: ninguno$/);
 });
 test('cruce y mutación conservan formaciones y suplentes en varias semillas', () => {
   for (const cantidad of [5, 7, 9]) for (const seed of [0, 1, 42, 987]) {

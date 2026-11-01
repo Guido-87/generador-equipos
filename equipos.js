@@ -101,6 +101,10 @@ export function algoritmoGenetico(convocados = jugadores, opciones = {}) {
   const mejor = poblacion[0];
   const equipos = [[], [], []];
   mejor.genes.forEach((destino, i) => equipos[destino].push({ ...convocados[i] }));
+  const orden = { ARQ: 0, DEF: 1, MED: 2, DEL: 3 };
+  for (const equipo of equipos) {
+    equipo.sort((a, b) => orden[a.pos] - orden[b.pos] || a.nombre.localeCompare(b.nombre, 'es'));
+  }
   const total = equipo => equipo.reduce((s, j) => s + puntaje(j), 0);
   const total1 = total(equipos[0]), total2 = total(equipos[1]);
   return { equipo1: equipos[0], equipo2: equipos[1], suplentes: equipos[2],

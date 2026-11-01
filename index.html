@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador de equipos</title>
+  <style>
+    body { font: 16px system-ui; max-width: 900px; margin: 40px auto; padding: 20px; background: #f3f6f4; color: #173728; }
+    button, select { font: inherit; padding: 10px; margin-right: 10px; }
+    pre { white-space: pre; overflow-x: auto; font: 15px/1.6 ui-monospace, monospace; background: white; padding: 24px; border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Generador de equipos</h1>
+  <p>Algoritmo genético · posiciones exactas · 18 jugadores</p>
+  <label>Formato <select id="formato"><option>5</option><option>7</option><option selected>9</option><option>11</option></select></label>
+  <button id="generar">Generar equipos</button>
+  <pre id="resultado" aria-live="polite"></pre>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>

@@ -36,6 +36,8 @@ Con F5/F7 se eligen titulares y se devuelve el resto en `suplentes`, sin duplica
 
 La API devuelve `equipo1`, `equipo2`, `suplentes`, `total1`, `total2`, `diferencia`, `algoritmo`, `generaciones`, `seed` y `optimoGarantizado`. Los datos de entrada no se modifican.
 
+Los equipos y suplentes se devuelven ordenados por ARQ, DEF, MED y DEL, y por nombre dentro de cada posición. `salida.js` comparte el formato de columnas alineadas entre consola y navegador. `index.html` y `script.js` incluyen una vista sencilla para PlayCode; al subir `equipos.js` a su editor, quitá únicamente `with { type: 'json' }` de la importación JSON si su compilador lo requiere. El archivo del repositorio conserva esa sintaxis para Node.js.
+
 ```js
 armarEquipos(7, { poblacion: 200, generaciones: 400, tasaMutacion: 0.15, seed: 123 });
 ```
