@@ -1,0 +1,8 @@
+{
+  "name": "generador-equipos",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12" },
+  "scripts": { "start": "node cli.js", "test": "node --test" }
+}

@@ -1,0 +1,20 @@
+[
+  { "nombre": "Edu", "pos": "ARQ", "habilidad": 9, "fisico": 9 },
+  { "nombre": "Agus", "pos": "ARQ", "habilidad": 9, "fisico": 8 },
+  { "nombre": "Guido", "pos": "DEF", "habilidad": 8, "fisico": 9 },
+  { "nombre": "Nacho", "pos": "DEF", "habilidad": 7, "fisico": 7 },
+  { "nombre": "Leo", "pos": "DEF", "habilidad": 7, "fisico": 8 },
+  { "nombre": "Zapa", "pos": "DEF", "habilidad": 7.5, "fisico": 9 },
+  { "nombre": "Cutu", "pos": "DEF", "habilidad": 8, "fisico": 9 },
+  { "nombre": "Boni", "pos": "DEF", "habilidad": 7.5, "fisico": 7 },
+  { "nombre": "Yorgiño", "pos": "MED", "habilidad": 9, "fisico": 9 },
+  { "nombre": "Naza", "pos": "MED", "habilidad": 9, "fisico": 7 },
+  { "nombre": "David", "pos": "MED", "habilidad": 7, "fisico": 9.5 },
+  { "nombre": "Agustín", "pos": "DEL", "habilidad": 7, "fisico": 8 },
+  { "nombre": "Ale", "pos": "MED", "habilidad": 7.5, "fisico": 7.5 },
+  { "nombre": "Eli", "pos": "MED", "habilidad": 7, "fisico": 6 },
+  { "nombre": "Ariel", "pos": "MED", "habilidad": 7, "fisico": 6 },
+  { "nombre": "Santi", "pos": "DEL", "habilidad": 9, "fisico": 7 },
+  { "nombre": "Antonio", "pos": "DEL", "habilidad": 7, "fisico": 7 },
+  { "nombre": "Tobi", "pos": "DEL", "habilidad": 7, "fisico": 8 }
+]
