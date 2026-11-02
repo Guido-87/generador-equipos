@@ -47,8 +47,8 @@ function reparar(individuo, grupos, formacion, random) {
 export function algoritmoGenetico(convocados = jugadores, opciones = {}) {
   const { modalidad = 'F9', poblacion: tamanio = 100, generaciones = 200,
     tasaMutacion = 0.10, seed = 42 } = opciones;
+  if (!Object.hasOwn(FORMACIONES, modalidad)) throw new Error('Formato no soportado: usá F5, F7, F9 o F11');
   const formacion = FORMACIONES[modalidad];
-  if (!formacion) throw new Error('Formato no soportado: usá F5, F7, F9 o F11');
   for (const [nombre, valor, minimo] of [['poblacion', tamanio, 2], ['generaciones', generaciones, 1]]) {
     if (!Number.isSafeInteger(valor) || valor < minimo) throw new Error(`${nombre} debe ser un entero >= ${minimo}`);
   }
@@ -57,9 +57,14 @@ export function algoritmoGenetico(convocados = jugadores, opciones = {}) {
   if (!Array.isArray(convocados)) throw new Error('convocados debe ser una lista');
   const grupos = Object.fromEntries(Object.keys(formacion).map(pos => [pos, []]));
   const nombres = new Set();
+  const ids = new Set();
   convocados.forEach((j, i) => {
     if (!j || typeof j.nombre !== 'string' || !j.nombre.trim() || nombres.has(j.nombre)) throw new Error('Nombres inválidos o repetidos');
     nombres.add(j.nombre);
+    if (Object.hasOwn(j, 'id')) {
+      if (!Number.isSafeInteger(j.id) || j.id < 1 || ids.has(j.id)) throw new Error('IDs inválidos o repetidos: deben ser enteros positivos únicos');
+      ids.add(j.id);
+    }
     if (!Object.hasOwn(grupos, j.pos)) throw new Error(`Posición inválida: ${j.pos}`);
     for (const campo of ['habilidad', 'fisico']) {
       if (!Number.isFinite(j[campo]) || j[campo] < 0 || j[campo] > 10) throw new Error(`${campo} debe estar entre 0 y 10`);

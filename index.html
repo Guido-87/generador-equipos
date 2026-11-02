@@ -1,21 +1,7 @@
 <!doctype html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Generador de equipos</title>
-  <style>
-    body { font: 16px system-ui; max-width: 900px; margin: 40px auto; padding: 20px; background: #f3f6f4; color: #173728; }
-    button, select { font: inherit; padding: 10px; margin-right: 10px; }
-    pre { white-space: pre; overflow-x: auto; font: 15px/1.6 ui-monospace, monospace; background: white; padding: 24px; border-radius: 12px; }
-  </style>
-</head>
-<body>
-  <h1>Generador de equipos</h1>
-  <p>Algoritmo genético · posiciones exactas · 18 jugadores</p>
-  <label>Formato <select id="formato"><option>5</option><option>7</option><option selected>9</option><option>11</option></select></label>
-  <button id="generar">Generar equipos</button>
-  <pre id="resultado" aria-live="polite"></pre>
-  <script type="module" src="./script.js"></script>
-</body>
-</html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generador de equipos</title><link rel="stylesheet" href="./styles.css"></head>
+<body><main><header><p class="eyebrow">EL PARTIDO EMPIEZA ACÁ</p><h1>Dos equipos.<br>Un buen partido.</h1><p>Elegí los convocados y equilibrá habilidad, físico y posiciones.</p></header>
+<div class="setup-layout"><div class="setup-controls"><section class="panel"><h2>1. Prepará el partido</h2><div class="controls"><label>Formato<select id="formato"><option value="5">F5</option><option value="7">F7</option><option value="9" selected>F9</option><option value="11">F11</option></select></label><label>Semilla<input aria-describedby="ayuda-semilla" id="seed" type="number" min="0" max="4294967295" step="1" value="42" required></label></div><p id="ayuda-semilla" class="hint">La semilla es un número que guía el reparto aleatorio. Podés dejar el que viene o cambiarlo para probar otra combinación.</p><p id="cupos"></p></section>
+<section class="panel"><h2>2. Elegí los convocados</h2><p id="contador" role="status"></p><p class="hint">Entre 10 y 22 jugadores. Los sobrantes quedan como suplentes. IDs permanentes, desde 1.</p><label for="ids">IDs manuales</label><div class="controls"><input id="ids" type="text" autocomplete="off" aria-describedby="ayuda"><button id="aplicar" type="button">Aplicar IDs</button></div><p id="ayuda" class="hint">Separá con espacios o comas y aplicá antes de generar.</p><div class="controls"><button id="todos" type="button">Seleccionar todos</button><button id="ninguno" type="button">Limpiar selección</button></div></section>
+<details class="panel"><summary>Agregar jugador a esta sesión</summary><p class="hint">Para F11 necesitás 22 jugadores y los cupos indicados. Completá los datos reales. Exportá la base para conservar las altas; al recargar se pierden.</p><form id="alta"><label>Nombre<input name="nombre" maxlength="80" required></label><label>Posición<select name="pos"><option>ARQ</option><option>DEF</option><option>MED</option><option>DEL</option></select></label><label>Habilidad<input name="habilidad" type="number" min="0" max="10" step="0.1" required></label><label>Físico<input name="fisico" type="number" min="0" max="10" step="0.1" required></label><button type="submit">Agregar jugador</button></form><button id="exportar" type="button">Exportar base JSON</button><p id="alta-estado" role="status"></p></details>
+<div id="error" role="alert" tabindex="-1" hidden></div><button id="generar" type="button" class="primary">Generar equipos</button></div><section class="panel roster-panel" aria-labelledby="titulo-jugadores"><h2 id="titulo-jugadores">Jugadores disponibles</h2><div id="jugadores" class="player-grid" aria-label="Jugadores disponibles"></div></section></div><section id="resultado" aria-live="polite" aria-atomic="true"></section><noscript>Activá JavaScript para usar el generador.</noscript><footer>Algoritmo genético · Habilidad 70% + físico 30%. El mejor equilibrio encontrado no siempre es el óptimo global.</footer></main><script type="module" src="./script.js"></script></body></html>

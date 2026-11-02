@@ -45,9 +45,9 @@ test('cruce y mutación conservan formaciones y suplentes en varias semillas', (
   }
 });
 test('F11 funciona con suficientes convocados, sin límite artificial de 22', () => {
-  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
+  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ id: 19 + i, nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
   validar(armarEquipos(11, { convocados: lista }), 11, lista);
-  const grande = Array.from({ length: 10 }, (_, k) => jugadores.map(j => ({ ...j, nombre: `${j.nombre}-${k}` }))).flat();
+  const grande = Array.from({ length: 10 }, (_, k) => jugadores.map(j => ({ ...j, id: k * jugadores.length + j.id, nombre: `${j.nombre}-${k}` }))).flat();
   validar(algoritmoGenetico(grande, { poblacion: 10, generaciones: 5 }), 9, grande);
 });
 test('validaciones de formato, datos, cupos y parámetros', () => {
