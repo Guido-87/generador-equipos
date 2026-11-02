@@ -47,3 +47,8 @@ Coordinación: Jesse (interfaz), Jona (lógica/datos), Juli (QA), con seguridad 
 ## Verificación completa
 
 Ejecutá npm run verify para comprobar sintaxis, pruebas unitarias e integración HTTP con cobertura mínima de líneas del 80% en lógica y servidor. El código de eventos del navegador queda fuera de esa cifra. Plan, decisiones y resultados en REVISION.md.
+
+## Netlify
+
+Conectá el repositorio de GitHub a Netlify usando main como rama de producción. netlify.toml configura Node 24, ejecuta npm run verify y npm run build, y publica únicamente dist. Cada push a main dispara un despliegue; si fallan las pruebas no se publica esa versión. Las altas siguen siendo de sesión: exportar JSON no modifica la base desplegada.
+
