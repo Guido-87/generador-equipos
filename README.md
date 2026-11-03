@@ -1,6 +1,6 @@
 # Generador de equipos
 
-Aplicación vanilla sin dependencias. Requiere Node.js 22.12 o posterior y un navegador actual con módulos e importaciones JSON.
+Interfaz vanilla sin frameworks; las estadísticas compartidas usan la biblioteca oficial @netlify/blobs. Requiere Node.js 22.12 o posterior y un navegador actual con módulos e importaciones JSON.
 
 ## Abrir la interfaz
 
@@ -23,7 +23,7 @@ La base inicial tiene 18 jugadores. F11 requiere 22: dos arqueros, ocho defensor
 - servidor.js: servidor local con lista explícita de archivos públicos.
 - equipos.original.js: referencia original conservada.
 
-No hay backend de escritura ni servicios externos. La ruta /mnt/data/equipos.js no estaba disponible: se trabajó sobre equipos.js existente en este proyecto.
+El generador funciona en el navegador; la escritura de estadísticas usa Netlify Functions y Blobs. La ruta /mnt/data/equipos.js no estaba disponible: se trabajó sobre equipos.js existente en este proyecto.
 
 ## Algoritmo
 
@@ -52,3 +52,15 @@ Ejecutá npm run verify para comprobar sintaxis, pruebas unitarias e integració
 
 Conectá el repositorio de GitHub a Netlify usando main como rama de producción. netlify.toml configura Node 24, ejecuta npm run verify y npm run build, y publica únicamente dist. Cada push a main dispara un despliegue; si fallan las pruebas no se publica esa versión. Las altas siguen siendo de sesión: exportar JSON no modifica la base desplegada.
 
+
+## Estadísticas compartidas
+
+El botón Agregar estadística abre un modal con jugador, goles, asistencias, participaciones calculadas (goles + asistencias) y MVP. La disponibilidad se consulta al servidor: sábado desde las 17:00, domingo y lunes hasta las 23:59:59, en America/Argentina/Buenos_Aires. Tanto abrir como guardar respetan la ventana; el servidor vuelve a validar al persistir.
+
+Se usa Netlify Functions y Netlify Blobs (dependencia @netlify/blobs). Los datos permanecen entre despliegues y se comparten entre dispositivos. Un registro por jugador permanente y jornada semanal, sin sobrescritura; se utiliza escritura condicional para evitar duplicados concurrentes. Las altas de jugadores de sesión no forman parte de esta base compartida. Las jornadas previas se conservan en el almacén, aunque la tabla muestra la jornada actual.
+
+La carga es pública durante la ventana: no hay autenticación y cualquiera puede registrar estadísticas de un jugador. El horario no identifica quién carga. Los registros no modifican la media ni el algoritmo genético.
+
+La interfaz permite actualizar la tabla y permanece disponible para lectura fuera de horario. La API GET /api/estadisticas devuelve reloj, jornada, habilitación y registros; POST valida IDs, contadores enteros 0–100 y MVP booleano. Se rechazan origen cruzado, JSON inválido y cuerpos mayores a 2 KiB. El reloj del navegador no autoriza escrituras.
+
+npm run web sirve sólo la parte estática local; la función compartida corre en Netlify. Para desarrollo completo se puede usar Netlify Dev con el proyecto vinculado. Las pruebas de API usan un almacén simulado y no escriben estadísticas reales. Suite ampliada: 24 pruebas; cobertura de lógica/API/servidor 98,03% de líneas (no incluye los eventos DOM ni el servicio externo de Netlify).

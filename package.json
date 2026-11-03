@@ -10,7 +10,10 @@
     "start": "node cli.js",
     "test": "node --test",
     "web": "node servidor.js",
-    "verify": "node --check script.js && node --check servidor.js && node --test --experimental-test-coverage --test-coverage-include=equipos.js --test-coverage-include=seleccion.js --test-coverage-include=salida.js --test-coverage-include=servidor.js --test-coverage-lines=80",
+    "verify": "node --check script.js && node --check servidor.js && node --check estadisticas-ui.js && node --check netlify/functions/estadisticas.mjs && node --test --experimental-test-coverage --test-coverage-include=equipos.js --test-coverage-include=seleccion.js --test-coverage-include=salida.js --test-coverage-include=servidor.js --test-coverage-include=estadisticas.js --test-coverage-include=estadisticas-api.js --test-coverage-lines=80",
     "build": "node build.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.7"
   }
 }

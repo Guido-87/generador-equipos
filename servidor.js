@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 // Lista explícita: el servidor local no expone archivos del proyecto ni rutas arbitrarias.
 const archivos = new Map([
   ['/', ['index.html', 'text/html']],
-  ...['index.html', 'styles.css', 'script.js', 'equipos.js', 'seleccion.js', 'jugadores.json'].map(nombre =>
+  ...['index.html', 'styles.css', 'script.js', 'equipos.js', 'seleccion.js', 'jugadores.json', 'estadisticas.js', 'estadisticas-ui.js'].map(nombre =>
     [`/${nombre}`, [nombre, nombre.endsWith('.json') ? 'application/json' : nombre.endsWith('.css') ? 'text/css' : nombre.endsWith('.html') ? 'text/html' : 'text/javascript']])
 ]);
 export function crearServidor() {
