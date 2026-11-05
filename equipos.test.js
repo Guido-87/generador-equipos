@@ -24,7 +24,7 @@ function validar(resultado, cantidad, lista = jugadores) {
   assert.ok(Math.abs(resultado.total2 - resultado.equipo2.reduce((s, j) => s + puntaje(j), 0)) < 1e-10);
 }
 test('lista exacta, valores de referencia y precisión del puntaje', () => {
-  assert.deepEqual(jugadores.map(j => j.nombre), ['Edu','Agus','Guido','Nacho','Leo','Zapa','Cutu','Boni','Yorgiño','Naza','David','Agustín','Ale','Eli','Ariel','Santi','Antonio','Tobi']);
+  assert.deepEqual(jugadores.map(j => j.nombre), ['Edu','Agus','Guido','Nacho','Leo','Zapa','Cutu','Boni','Yorgiño','Naza','David','Agustín','Ale','Eli','Ariel','Santi','Antonio','Tobi','Dani','Bruno','Mati','Seba','Julio','Cutu 2']);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'Zapa')) - 7.95) < 1e-10);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'David')) - 7.75) < 1e-10);
 });
@@ -45,13 +45,13 @@ test('cruce y mutación conservan formaciones y suplentes en varias semillas', (
   }
 });
 test('F11 funciona con suficientes convocados, sin límite artificial de 22', () => {
-  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ id: 19 + i, nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
+  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ id: 25 + i, nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
   validar(armarEquipos(11, { convocados: lista }), 11, lista);
   const grande = Array.from({ length: 10 }, (_, k) => jugadores.map(j => ({ ...j, id: k * jugadores.length + j.id, nombre: `${j.nombre}-${k}` }))).flat();
   validar(algoritmoGenetico(grande, { poblacion: 10, generaciones: 5 }), 9, grande);
 });
 test('validaciones de formato, datos, cupos y parámetros', () => {
-  assert.throws(() => armarEquipos(11), /Se necesitan/);
+  assert.doesNotThrow(() => armarEquipos(11));
   assert.throws(() => armarEquipos(8), /Formato/);
   assert.throws(() => algoritmoGenetico([...jugadores, jugadores[0]]), /repetidos/);
   assert.throws(() => algoritmoGenetico(jugadores.slice(1)), /ARQ/);
@@ -68,16 +68,18 @@ test('semilla reproducible y entrada sin modificaciones', () => {
 });
 test('genético alcanza el óptimo F9 contrastado con oráculo exhaustivo independiente', () => {
   // Sólo en pruebas: todas las mitades posibles de cada posición, sin suplentes.
+  const convocados = jugadores.slice(0, 18);
   function sumas(arr, n, inicio = 0, suma = 0) {
     if (n === 0) return [suma];
     return arr.flatMap((j, i) => i < inicio ? [] : sumas(arr, n - 1, i + 1, suma + puntaje(j)));
   }
   let totales = [0];
   for (const [pos, n] of Object.entries(FORMACIONES.F9)) {
-    const opciones = sumas(jugadores.filter(j => j.pos === pos), n);
+    const opciones = sumas(convocados.filter(j => j.pos === pos), n);
     totales = totales.flatMap(s => opciones.map(t => s + t));
   }
-  const total = jugadores.reduce((s, j) => s + puntaje(j), 0);
+  const total = convocados.reduce((s, j) => s + puntaje(j), 0);
   const optimo = Math.min(...totales.map(s => Math.abs(2 * s - total)));
-  assert.ok(Math.abs(armarEquipos().diferencia - optimo) < 1e-10);
+  assert.ok(Math.abs(armarEquipos(9, { convocados }).diferencia - optimo) < 1e-10);
 });
+

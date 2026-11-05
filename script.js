@@ -1,7 +1,7 @@
 import { armarEquipos, jugadores, puntaje, FORMACIONES } from './equipos.js';
 import { seleccionarPorIds, validarSeleccion } from './seleccion.js';
 const $ = s => document.querySelector(s);
-const base = jugadores.map(j => ({ ...j }));
+let base = jugadores.map(j => ({ ...j }));
 const seleccionados = new Set(base.slice(0, 22).map(j => j.id));
 let pendientes = false;
 // Media visual truncada; el algoritmo conserva el puntaje original.
@@ -49,7 +49,13 @@ $('#alta').addEventListener('submit', e => { e.preventDefault(); try {
   if (!nombre || base.some(j => j.nombre.toLocaleLowerCase('es') === nombre.toLocaleLowerCase('es'))) throw new Error('Ingresá un nombre único.');
   if (!['ARQ','DEF','MED','DEL'].includes(pos) || ![habilidad,fisico].every(n => Number.isFinite(n) && n >= 0 && n <= 10)) throw new Error('Posición o puntajes inválidos.');
   const id = Math.max(0,...base.map(j => j.id)) + 1; if (!Number.isSafeInteger(id)) throw new Error('No quedan IDs disponibles.');
-  base.push({id,nombre,pos,habilidad,fisico}); if (seleccionados.size < 22) seleccionados.add(id); actualizar(); form.reset(); $('#alta-estado').textContent = `${nombre} agregado con ID ${id}. Exportá la base para conservarlo.`;
+  base.push({id,nombre,pos,habilidad,fisico}); if (seleccionados.size < 22) seleccionados.add(id); actualizar(); form.reset(); $('#alta-estado').textContent = `${nombre} agregado con ID ${id}. Guardá la base para conservarlo.`;
 } catch(e) { error(e); } });
-$('#exportar').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([JSON.stringify(base,null,2)+'\n'],{type:'application/json'})); const a = document.createElement('a'); a.href=url; a.download='jugadores.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000); });
+$('#guardar-base').addEventListener('click', () => {
+  const url = URL.createObjectURL(new Blob([JSON.stringify(base, null, 2) + '\n'], { type: 'application/json' }));
+  const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'jugadores.json'; enlace.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  $('#alta-estado').textContent = 'Base descargada. Reemplazá jugadores.json en el proyecto y publicá el cambio para compartirla.';
+});
 actualizar(); cupos();
+

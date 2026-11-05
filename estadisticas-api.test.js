@@ -130,3 +130,14 @@ test('abrir el formulario antes del cierre no permite guardar después de median
   assert.equal(respuesta.status, 403);
   assert.equal(store.datos.size, 0);
 });
+
+test('estadísticas validan contra la base permanente guardada', async () => {
+  const store = almacen();
+  const lista = [{ ...jugadores[0] }, { ...jugadores[1] }];
+  const handler = crearApiEstadisticas({ store, jugadores: lista, ahora: () => new Date(fechaAbierta) });
+  const r = await handler(peticion({ ...dato, jugadorId: 24 }));
+  assert.equal(r.status, 400);
+  assert.equal(store.datos.size, 0);
+  const ok = await handler(peticion({ ...dato, jugadorId: 1 }));
+  assert.equal(ok.status, 201);
+});

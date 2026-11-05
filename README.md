@@ -12,7 +12,7 @@ Abrí http://127.0.0.1:3000. El servidor sólo escucha en tu computadora. Abrir 
 
 Elegí F5, F7, F9 o F11. Marcá jugadores o ingresá IDs separados por espacios, comas o punto y coma y aplicá la selección. Se admiten entre 10 y 22 convocados, suficientes para dos equipos y los cupos de cada posición. Los convocados adicionales aparecen como suplentes. Los primeros diez IDs pueden no alcanzar los cupos de posiciones.
 
-La base inicial tiene 18 jugadores. F11 requiere 22: dos arqueros, ocho defensores, ocho mediocampistas y cuatro delanteros. Para completar la base actual, agregá dos defensores y dos mediocampistas con sus datos reales. Las altas visuales duran durante la sesión. Usá Exportar base JSON y reemplazá jugadores.json del proyecto con el archivo descargado para conservarlas; luego recargá.
+La base inicial tiene 18 jugadores. F11 requiere 22: dos arqueros, ocho defensores, ocho mediocampistas y cuatro delanteros. Para completar la base actual, agregá dos defensores y dos mediocampistas con sus datos reales. Las altas visuales duran durante la sesión. El botón Guardar base descarga jugadores.json; reemplazá el archivo del proyecto y publicá el cambio para compartirlo.
 
 ## Archivos y decisiones
 
@@ -23,7 +23,7 @@ La base inicial tiene 18 jugadores. F11 requiere 22: dos arqueros, ocho defensor
 - servidor.js: servidor local con lista explícita de archivos públicos.
 - equipos.original.js: referencia original conservada.
 
-El generador funciona en el navegador; la escritura de estadísticas usa Netlify Functions y Blobs. La ruta /mnt/data/equipos.js no estaba disponible: se trabajó sobre equipos.js existente en este proyecto.
+El generador funciona en el navegador; la escritura de estadísticas usa Netlify Functions y Blobs. La base se guarda como archivo descargado y se comparte al publicar jugadores.json. La ruta /mnt/data/equipos.js no estaba disponible: se trabajó sobre equipos.js existente en este proyecto.
 
 ## Algoritmo
 
@@ -64,3 +64,4 @@ La carga es pública durante la ventana: no hay autenticación y cualquiera pued
 La interfaz permite actualizar la tabla y permanece disponible para lectura fuera de horario. La API GET /api/estadisticas devuelve reloj, jornada, habilitación y registros; POST valida IDs, contadores enteros 0–100 y MVP booleano. Se rechazan origen cruzado, JSON inválido y cuerpos mayores a 2 KiB. El reloj del navegador no autoriza escrituras.
 
 npm run web sirve sólo la parte estática local; la función compartida corre en Netlify. Para desarrollo completo se puede usar Netlify Dev con el proyecto vinculado. Las pruebas de API usan un almacén simulado y no escriben estadísticas reales. Suite ampliada: 24 pruebas; cobertura de lógica/API/servidor 98,03% de líneas (no incluye los eventos DOM ni el servicio externo de Netlify).
+

@@ -1,20 +1,170 @@
 [
-  { "id": 1, "nombre": "Edu", "pos": "ARQ", "habilidad": 9, "fisico": 9 },
-  { "id": 2, "nombre": "Agus", "pos": "ARQ", "habilidad": 9, "fisico": 8 },
-  { "id": 3, "nombre": "Guido", "pos": "DEF", "habilidad": 8, "fisico": 9 },
-  { "id": 4, "nombre": "Nacho", "pos": "DEF", "habilidad": 7, "fisico": 7 },
-  { "id": 5, "nombre": "Leo", "pos": "DEF", "habilidad": 7, "fisico": 8 },
-  { "id": 6, "nombre": "Zapa", "pos": "DEF", "habilidad": 7.5, "fisico": 9 },
-  { "id": 7, "nombre": "Cutu", "pos": "DEF", "habilidad": 8, "fisico": 9 },
-  { "id": 8, "nombre": "Boni", "pos": "DEF", "habilidad": 7.5, "fisico": 7 },
-  { "id": 9, "nombre": "Yorgiño", "pos": "MED", "habilidad": 9, "fisico": 9 },
-  { "id": 10, "nombre": "Naza", "pos": "MED", "habilidad": 9, "fisico": 7 },
-  { "id": 11, "nombre": "David", "pos": "MED", "habilidad": 7, "fisico": 9.5 },
-  { "id": 12, "nombre": "Agustín", "pos": "DEL", "habilidad": 7, "fisico": 8 },
-  { "id": 13, "nombre": "Ale", "pos": "MED", "habilidad": 7.5, "fisico": 7.5 },
-  { "id": 14, "nombre": "Eli", "pos": "MED", "habilidad": 7, "fisico": 6 },
-  { "id": 15, "nombre": "Ariel", "pos": "MED", "habilidad": 7, "fisico": 6 },
-  { "id": 16, "nombre": "Santi", "pos": "DEL", "habilidad": 9, "fisico": 7 },
-  { "id": 17, "nombre": "Antonio", "pos": "DEL", "habilidad": 7, "fisico": 7 },
-  { "id": 18, "nombre": "Tobi", "pos": "DEL", "habilidad": 7, "fisico": 8 }
+  {
+    "id": 1,
+    "nombre": "Edu",
+    "pos": "ARQ",
+    "habilidad": 9,
+    "fisico": 9
+  },
+  {
+    "id": 2,
+    "nombre": "Agus",
+    "pos": "ARQ",
+    "habilidad": 9,
+    "fisico": 8
+  },
+  {
+    "id": 3,
+    "nombre": "Guido",
+    "pos": "DEF",
+    "habilidad": 8,
+    "fisico": 9
+  },
+  {
+    "id": 4,
+    "nombre": "Nacho",
+    "pos": "DEF",
+    "habilidad": 7,
+    "fisico": 7
+  },
+  {
+    "id": 5,
+    "nombre": "Leo",
+    "pos": "DEF",
+    "habilidad": 7,
+    "fisico": 8
+  },
+  {
+    "id": 6,
+    "nombre": "Zapa",
+    "pos": "DEF",
+    "habilidad": 7.5,
+    "fisico": 9
+  },
+  {
+    "id": 7,
+    "nombre": "Cutu",
+    "pos": "DEF",
+    "habilidad": 8,
+    "fisico": 9
+  },
+  {
+    "id": 8,
+    "nombre": "Boni",
+    "pos": "DEF",
+    "habilidad": 7.5,
+    "fisico": 7
+  },
+  {
+    "id": 9,
+    "nombre": "Yorgiño",
+    "pos": "MED",
+    "habilidad": 9,
+    "fisico": 9
+  },
+  {
+    "id": 10,
+    "nombre": "Naza",
+    "pos": "MED",
+    "habilidad": 9,
+    "fisico": 7
+  },
+  {
+    "id": 11,
+    "nombre": "David",
+    "pos": "MED",
+    "habilidad": 7,
+    "fisico": 9.5
+  },
+  {
+    "id": 12,
+    "nombre": "Agustín",
+    "pos": "DEL",
+    "habilidad": 7,
+    "fisico": 8
+  },
+  {
+    "id": 13,
+    "nombre": "Ale",
+    "pos": "MED",
+    "habilidad": 7.5,
+    "fisico": 7.5
+  },
+  {
+    "id": 14,
+    "nombre": "Eli",
+    "pos": "MED",
+    "habilidad": 7,
+    "fisico": 6
+  },
+  {
+    "id": 15,
+    "nombre": "Ariel",
+    "pos": "MED",
+    "habilidad": 7,
+    "fisico": 6
+  },
+  {
+    "id": 16,
+    "nombre": "Santi",
+    "pos": "DEL",
+    "habilidad": 9,
+    "fisico": 7
+  },
+  {
+    "id": 17,
+    "nombre": "Antonio",
+    "pos": "DEL",
+    "habilidad": 7,
+    "fisico": 7
+  },
+  {
+    "id": 18,
+    "nombre": "Tobi",
+    "pos": "DEL",
+    "habilidad": 7,
+    "fisico": 8
+  },
+  {
+    "id": 19,
+    "nombre": "Dani",
+    "pos": "MED",
+    "habilidad": 6,
+    "fisico": 1
+  },
+  {
+    "id": 20,
+    "nombre": "Bruno",
+    "pos": "DEF",
+    "habilidad": 9,
+    "fisico": 9
+  },
+  {
+    "id": 21,
+    "nombre": "Mati",
+    "pos": "DEF",
+    "habilidad": 7,
+    "fisico": 7
+  },
+  {
+    "id": 22,
+    "nombre": "Seba",
+    "pos": "MED",
+    "habilidad": 8.5,
+    "fisico": 8
+  },
+  {
+    "id": 23,
+    "nombre": "Julio",
+    "pos": "DEL",
+    "habilidad": 9,
+    "fisico": 9
+  },
+  {
+    "id": 24,
+    "nombre": "Cutu 2",
+    "pos": "MED",
+    "habilidad": 8.5,
+    "fisico": 8
+  }
 ]
