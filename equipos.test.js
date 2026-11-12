@@ -24,7 +24,7 @@ function validar(resultado, cantidad, lista = jugadores) {
   assert.ok(Math.abs(resultado.total2 - resultado.equipo2.reduce((s, j) => s + puntaje(j), 0)) < 1e-10);
 }
 test('lista exacta, valores de referencia y precisión del puntaje', () => {
-  assert.deepEqual(jugadores.map(j => j.nombre), ['Edu','Agus','Guido','Nacho','Leo','Zapa','Cutu','Boni','Yorgiño','Naza','David','Agustín','Ale','Eli','Ariel','Santi','Antonio','Tobi','Dani','Bruno','Mati','Seba','Julio','Cutu 2']);
+  assert.deepEqual(jugadores.map(j => j.nombre), ['Edu','Agus','Guido','Nacho','Leo','Zapa','Cutu','Boni','Yorgiño','Naza','David','Agustín','Ale','Eli','Ariel','Santi','Antonio','Tobi','Dani','Bruno','Mati','Seba','Julio','Cutu MED','Facu','Agus DEF','Naza DEL']);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'Zapa')) - 7.95) < 1e-10);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'David')) - 7.75) < 1e-10);
 });
@@ -45,7 +45,7 @@ test('cruce y mutación conservan formaciones y suplentes en varias semillas', (
   }
 });
 test('F11 funciona con suficientes convocados, sin límite artificial de 22', () => {
-  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ id: 25 + i, nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
+  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ id: 28 + i, nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
   validar(armarEquipos(11, { convocados: lista }), 11, lista);
   const grande = Array.from({ length: 10 }, (_, k) => jugadores.map(j => ({ ...j, id: k * jugadores.length + j.id, nombre: `${j.nombre}-${k}` }))).flat();
   validar(algoritmoGenetico(grande, { poblacion: 10, generaciones: 5 }), 9, grande);
@@ -54,7 +54,7 @@ test('validaciones de formato, datos, cupos y parámetros', () => {
   assert.doesNotThrow(() => armarEquipos(11));
   assert.throws(() => armarEquipos(8), /Formato/);
   assert.throws(() => algoritmoGenetico([...jugadores, jugadores[0]]), /repetidos/);
-  assert.throws(() => algoritmoGenetico(jugadores.slice(1)), /ARQ/);
+  assert.throws(() => algoritmoGenetico(jugadores.filter(j => j.pos !== 'ARQ' || j.id === 25)), /ARQ/);
   assert.throws(() => algoritmoGenetico([{ ...jugadores[0], fisico: NaN }]), /fisico/);
   assert.throws(() => armarEquipos(9, { poblacion: 1 }), /poblacion/);
   assert.throws(() => armarEquipos(9, { generaciones: 0 }), /generaciones/);

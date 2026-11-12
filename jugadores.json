@@ -162,9 +162,30 @@
   },
   {
     "id": 24,
-    "nombre": "Cutu 2",
+    "nombre": "Cutu MED",
     "pos": "MED",
     "habilidad": 8.5,
     "fisico": 8
+  },
+  {
+    "id": 25,
+    "nombre": "Facu",
+    "pos": "ARQ",
+    "habilidad": 9,
+    "fisico": 9
+  },
+  {
+    "id": 26,
+    "nombre": "Agus DEF",
+    "pos": "DEF",
+    "habilidad": 8,
+    "fisico": 7
+  },
+  {
+    "id": 27,
+    "nombre": "Naza DEL",
+    "pos": "DEL",
+    "habilidad": 9.5,
+    "fisico": 7
   }
 ]
