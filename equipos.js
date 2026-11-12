@@ -1,7 +1,7 @@
 import lista from './jugadores.json' with { type: 'json' };
 
 export const FORMACIONES = Object.freeze({
-  F5: Object.freeze({ ARQ: 1, DEF: 1, MED: 2, DEL: 1 }),
+  F5: Object.freeze({ ARQ: 1, DEF: 2, MED: 0, DEL: 2 }),
   F7: Object.freeze({ ARQ: 1, DEF: 2, MED: 2, DEL: 2 }),
   F9: Object.freeze({ ARQ: 1, DEF: 3, MED: 3, DEL: 2 }),
   F11: Object.freeze({ ARQ: 1, DEF: 4, MED: 4, DEL: 2 })

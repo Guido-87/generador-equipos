@@ -52,7 +52,7 @@ function actualizar() {
   actualizarSeleccionMasiva();
   limpiar();
 }
-function cupos() { const c = Number($('#formato').value); $('#cupos').textContent = `${c*2} titulares. Por equipo: ${Object.entries(FORMACIONES[`F${c}`]).map(([p,n]) => `${n} ${p}`).join(' · ')}.`; limpiar(); }
+function cupos() { const c = Number($('#formato').value); $('#cupos').textContent = `${c*2} titulares. Por equipo: ${Object.entries(FORMACIONES[`F${c}`]).filter(([, n]) => n > 0).map(([p,n]) => `${n} ${p}`).join(' · ')}.`; limpiar(); }
 $('#ids').addEventListener('input', () => { pendientes = true; limpiar(); });
 $('#aplicar').addEventListener('click', () => { try { const lista = seleccionarPorIds($('#ids').value, base); if (lista.length > 22) throw new Error('Podés seleccionar como máximo 22 jugadores.'); seleccionados.clear(); lista.forEach(j => seleccionados.add(j.id)); actualizar(); } catch(e) { error(e); } });
 $('#seleccionar-todos').addEventListener('change', e => {

@@ -24,7 +24,7 @@ function validar(resultado, cantidad, lista = jugadores) {
   assert.ok(Math.abs(resultado.total2 - resultado.equipo2.reduce((s, j) => s + puntaje(j), 0)) < 1e-10);
 }
 test('lista exacta, valores de referencia y precisión del puntaje', () => {
-  assert.deepEqual(jugadores.map(j => j.nombre), ['Edu','Agus','Guido','Nacho','Leo','Zapa','Cutu','Boni','Yorgiño','Naza','David','Agustín','Ale','Eli','Ariel','Santi','Antonio','Tobi','Dani','Bruno','Mati','Seba','Julio','Cutu MED','Facu','Agus DEF','Naza DEL']);
+  assert.deepEqual(jugadores.map(j => j.nombre), ['Edu','Agus','Guido','Nacho','Leo','Zapa','Cutu','Boni','Yorgiño','Naza','David','Agustín','Ale','Eli','Ariel','Santi','Antonio','Tobi','Dani','Bruno','Mati','Seba','Julio','Cutu MED','Facu','Agus DEF','Naza DEL','Horacio','Carli','Pablo C','Julián','Luis','Buchi','Migue','Gabi']);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'Zapa')) - 7.95) < 1e-10);
   assert.ok(Math.abs(puntaje(jugadores.find(j => j.nombre === 'David')) - 7.75) < 1e-10);
 });
@@ -45,9 +45,9 @@ test('cruce y mutación conservan formaciones y suplentes en varias semillas', (
   }
 });
 test('F11 funciona con suficientes convocados, sin límite artificial de 22', () => {
-  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ id: 28 + i, nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
+  const lista = [...jugadores, ...['DEF','DEF','MED','MED'].map((pos, i) => ({ id: 37 + i, nombre: `Extra${i}`, pos, habilidad: 8, fisico: 8 }))];
   validar(armarEquipos(11, { convocados: lista }), 11, lista);
-  const grande = Array.from({ length: 10 }, (_, k) => jugadores.map(j => ({ ...j, id: k * jugadores.length + j.id, nombre: `${j.nombre}-${k}` }))).flat();
+  const grande = Array.from({ length: 10 }, (_, k) => jugadores.map(j => ({ ...j, id: k * 100 + j.id, nombre: `${j.nombre}-${k}` }))).flat();
   validar(algoritmoGenetico(grande, { poblacion: 10, generaciones: 5 }), 9, grande);
 });
 test('validaciones de formato, datos, cupos y parámetros', () => {

@@ -187,5 +187,61 @@
     "pos": "DEL",
     "habilidad": 9.5,
     "fisico": 7
+  },
+  {
+    "id": 28,
+    "nombre": "Horacio",
+    "pos": "ARQ",
+    "habilidad": 6,
+    "fisico": 7
+  },
+  {
+    "id": 29,
+    "nombre": "Carli",
+    "pos": "DEL",
+    "habilidad": 9,
+    "fisico": 7
+  },
+  {
+    "id": 30,
+    "nombre": "Pablo C",
+    "pos": "DEF",
+    "habilidad": 7,
+    "fisico": 7
+  },
+  {
+    "id": 31,
+    "nombre": "Julián",
+    "pos": "DEF",
+    "habilidad": 7,
+    "fisico": 6
+  },
+  {
+    "id": 32,
+    "nombre": "Luis",
+    "pos": "DEL",
+    "habilidad": 7,
+    "fisico": 6
+  },
+  {
+    "id": 33,
+    "nombre": "Buchi",
+    "pos": "DEF",
+    "habilidad": 7,
+    "fisico": 6
+  },
+  {
+    "id": 35,
+    "nombre": "Migue",
+    "pos": "DEL",
+    "habilidad": 8,
+    "fisico": 7
+  },
+  {
+    "id": 36,
+    "nombre": "Gabi",
+    "pos": "DEL",
+    "habilidad": 7,
+    "fisico": 4.9
   }
 ]
