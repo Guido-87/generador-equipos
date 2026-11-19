@@ -12,7 +12,7 @@ Abrí http://127.0.0.1:3000. El servidor sólo escucha en tu computadora. Abrir 
 
 Elegí F5, F7, F9 o F11. Marcá jugadores o ingresá IDs separados por espacios, comas o punto y coma y aplicá la selección. Se admiten entre 10 y 22 convocados, suficientes para dos equipos y los cupos de cada posición. Los convocados adicionales aparecen como suplentes. Los primeros diez IDs pueden no alcanzar los cupos de posiciones.
 
-La base inicial tiene 18 jugadores. F11 requiere 22: dos arqueros, ocho defensores, ocho mediocampistas y cuatro delanteros. Para completar la base actual, agregá dos defensores y dos mediocampistas con sus datos reales. Las altas visuales duran durante la sesión. El botón Guardar base descarga jugadores.json; reemplazá el archivo del proyecto y publicá el cambio para compartirlo.
+La base se guarda en `jugadores.json`. En la web publicada, Guardar base envía los nuevos jugadores a GitHub y cada commit dispara un despliegue de Netlify. En el servidor local, Guardar base descarga el JSON para reemplazar el archivo manualmente.
 
 ## Archivos y decisiones
 
@@ -23,7 +23,7 @@ La base inicial tiene 18 jugadores. F11 requiere 22: dos arqueros, ocho defensor
 - servidor.js: servidor local con lista explícita de archivos públicos.
 - equipos.original.js: referencia original conservada.
 
-El generador funciona en el navegador; la escritura de estadísticas usa Netlify Functions y Blobs. La base se guarda como archivo descargado y se comparte al publicar jugadores.json. La ruta /mnt/data/equipos.js no estaba disponible: se trabajó sobre equipos.js existente en este proyecto.
+El generador funciona en el navegador; la escritura de estadísticas usa Netlify Functions y Blobs. El guardado de jugadores usa la función `netlify/functions/jugadores.mjs`, que valida el JSON y hace un commit de `jugadores.json` en `main` mediante GitHub Contents API. La ruta `/api/jugadores` requiere `GITHUB_TOKEN` y `JUGADORES_ADMIN_KEY` configurados como secretos de funciones en Netlify. El token debe ser fine-grained, restringido a este repositorio, con permiso `Contents: Read and write`; la clave de administración debe tener al menos 32 caracteres aleatorios y se solicita al guardar, sin persistirla en el navegador. La función conserva los jugadores e IDs existentes y sólo admite altas con IDs posteriores. La ruta `/mnt/data/equipos.js` no estaba disponible: se trabajó sobre `equipos.js` existente en este proyecto.
 
 ## Algoritmo
 

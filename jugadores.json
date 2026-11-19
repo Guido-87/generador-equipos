@@ -243,5 +243,26 @@
     "pos": "DEL",
     "habilidad": 7,
     "fisico": 4.9
+  },
+  {
+    "id": 37,
+    "nombre": "Diego",
+    "pos": "DEF",
+    "habilidad": 6,
+    "fisico": 6
+  },
+  {
+    "id": 38,
+    "nombre": "Guido DEL",
+    "pos": "DEL",
+    "habilidad": 9,
+    "fisico": 9
+  },
+  {
+    "id": 39,
+    "nombre": "Rodri",
+    "pos": "DEL",
+    "habilidad": 8,
+    "fisico": 8
   }
 ]

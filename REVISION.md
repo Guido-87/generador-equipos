@@ -11,7 +11,7 @@ Applied the IA project's review principles to this vanilla application: focused 
 - Keep jugadores.json as the single checked-in data source, with explicit positive stable IDs. No parallel db.json.
 - Keep the genetic algorithm and exact position constraints in equipos.js. Selection parsing and the UI-specific 10–22 limit belong in seleccion.js.
 - Keep browser events/rendering in script.js and layout in styles.css. The UI displays truncated two-digit ratings while the algorithm retains full precision.
-- Session additions are exported as JSON; they do not write to the project automatically. No persistence service is needed for this scope.
+- Session additions are saved through a Netlify Function to `jugadores.json` on GitHub. The fine-grained GitHub token remains in Netlify Functions environment variables; a separate 32-character-or-longer admin key protects the write endpoint. The browser asks for the admin key at save time and never persists it. Existing players and IDs cannot be removed or edited through this flow; it only adds IDs above the current maximum.
 - Export crearServidor() so HTTP tests can use an isolated ephemeral port without starting the normal port 3000. Direct execution remains npm run web.
 - Serve only explicitly allowed files, bind to loopback, reject writes, and render player-controlled strings as text. Malformed URL parsing is guarded.
 

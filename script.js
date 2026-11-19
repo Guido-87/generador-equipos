@@ -128,11 +128,38 @@ $('#alta').addEventListener('submit', e => { e.preventDefault(); try {
   const id = Math.max(0,...base.map(j => j.id)) + 1; if (!Number.isSafeInteger(id)) throw new Error('No quedan IDs disponibles.');
   base.push({id,nombre,pos,habilidad,fisico}); if (seleccionados.size < 22) seleccionados.add(id); actualizar(); form.reset(); $('#alta-estado').textContent = `${nombre} agregado con ID ${id}. Guardá la base para conservarlo.`;
 } catch(e) { error(e); } });
-$('#guardar-base').addEventListener('click', () => {
+function descargarBase() {
   const url = URL.createObjectURL(new Blob([JSON.stringify(base, null, 2) + '\n'], { type: 'application/json' }));
   const enlace = document.createElement('a'); enlace.href = url; enlace.download = 'jugadores.json'; enlace.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  $('#alta-estado').textContent = 'Base descargada. Reemplazá jugadores.json en el proyecto y publicá el cambio para compartirla.';
+  $('#alta-estado').textContent = 'Base descargada. En la versión local, reemplazá jugadores.json con este archivo.';
+}
+$('#guardar-base').addEventListener('click', () => {
+  if (['localhost', '127.0.0.1', '::1'].includes(location.hostname)) { descargarBase(); return; }
+  $('#guardar-base-error').textContent = '';
+  $('#modal-guardar-base').showModal();
+  $('#clave-guardar-base').focus();
+});
+$('#cancelar-guardar-base').addEventListener('click', () => $('#modal-guardar-base').close());
+$('#form-guardar-base').addEventListener('submit', async e => {
+  e.preventDefault();
+  const boton = $('#confirmar-guardar-base');
+  boton.disabled = true;
+  $('#guardar-base-error').textContent = '';
+  try {
+    const respuesta = await fetch('/api/jugadores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${$('#clave-guardar-base').value}` },
+      body: JSON.stringify(base)
+    });
+    const datos = await respuesta.json().catch(() => ({}));
+    if (!respuesta.ok) throw new Error(datos.error || 'No se pudo guardar la base.');
+    $('#modal-guardar-base').close();
+    $('#form-guardar-base').reset();
+    $('#alta-estado').textContent = 'Base guardada en GitHub. Netlify iniciará el despliegue automáticamente.';
+  } catch (error) {
+    $('#guardar-base-error').textContent = error instanceof TypeError ? 'No se pudo conectar con el servicio de guardado.' : error.message;
+  } finally { boton.disabled = false; }
 });
 actualizar(); cupos();
 
