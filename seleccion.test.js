@@ -5,11 +5,11 @@ import { seleccionarPorIds, validarSeleccion } from './seleccion.js';
 
 const idsF5 = '1 2 3 4 5 6 12 16 17 18';
 const extras = ['DEF', 'DEF', 'MED', 'MED'].map((pos, i) => ({
-  id: 19 + i, nombre: `Extra ${i}`, pos, habilidad: 8, fisico: 8
+  id: 40 + i, nombre: `Extra ${i}`, pos, habilidad: 8, fisico: 8
 }));
 
 test('IDs explícitos desde 1, independientes del orden de la base', () => {
-  assert.deepEqual(jugadores.map(j => j.id), [...Array.from({ length: 33 }, (_, i) => i + 1), 35, 36]);
+  assert.deepEqual(jugadores.map(j => j.id), [...Array.from({ length: 33 }, (_, i) => i + 1), 35, 36, 37, 38, 39]);
   assert.equal(jugadores.find(j => j.id === 35).nombre, 'Migue');
   assert.equal(jugadores.find(j => j.id === 35).pos, 'DEL');
   assert.deepEqual(seleccionarPorIds('18, 1; 9', [...jugadores].reverse()).map(j => j.nombre), ['Tobi', 'Edu', 'Yorgiño']);
@@ -17,7 +17,7 @@ test('IDs explícitos desde 1, independientes del orden de la base', () => {
 });
 
 test('entrada manual rechaza IDs ambiguos, inexistentes, repetidos y código', () => {
-  for (const entrada of ['', ' ', '0', '-1', '1.5', '1e1', '0x10', '+1', '01', '99999999999999999999', '1 1', '37', '1+2', '<img src=x onerror=alert(1)>']) {
+  for (const entrada of ['', ' ', '0', '-1', '1.5', '1e1', '0x10', '+1', '01', '99999999999999999999', '1 1', '40', '1+2', '<img src=x onerror=alert(1)>']) {
     assert.throws(() => seleccionarPorIds(entrada, jugadores), Error, entrada);
   }
   assert.throws(() => seleccionarPorIds('1', [...jugadores, jugadores[0]]), /base/);
