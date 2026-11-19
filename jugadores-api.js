@@ -40,17 +40,20 @@ export function crearApiJugadores({ env = process.env, fetchImpl = fetch } = {})
     const token = env.GITHUB_TOKEN, clave = env.JUGADORES_ADMIN_KEY;
     if (!token || !clave) return respuesta(503, 'El guardado automático todavía no está configurado.');
     if (Buffer.byteLength(clave) < 32) return respuesta(503, 'La clave de administración debe tener al menos 32 caracteres aleatorios.');
-    if (!claveIgual(request.headers.get('authorization')?.replace(/^Bearer\s+/i, ''), clave)) return respuesta(401, 'Clave de administración incorrecta.');
-
     if (!request.headers.get('content-type')?.toLowerCase().includes('application/json')) return respuesta(415, 'Se esperaba contenido JSON.');
 
-    let jugadores;
+    let datos;
     try {
       const body = await request.text();
       if (Buffer.byteLength(body) > 32_768) return respuesta(413, 'La base enviada es demasiado grande.');
-      jugadores = normalizar(JSON.parse(body));
+      datos = JSON.parse(body);
     }
-    catch (e) { return respuesta(400, e instanceof SyntaxError ? 'El contenido JSON no es válido.' : e.message); }
+    catch (e) { return respuesta(400, e instanceof SyntaxError ? 'El contenido JSON no es válido.' : 'No se pudo leer el contenido enviado.'); }
+    if (!datos || typeof datos !== 'object' || Array.isArray(datos)) return respuesta(400, 'El contenido enviado no es válido.');
+    if (!claveIgual(datos.claveAdmin, clave)) return respuesta(401, 'Clave de administración incorrecta.');
+    let jugadores;
+    try { jugadores = normalizar(datos.jugadores); }
+    catch (e) { return respuesta(400, e.message); }
 
     const apiUrl = `https://api.github.com/repos/${REPO}/contents/${PATH}`;
     const headers = {

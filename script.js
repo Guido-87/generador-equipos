@@ -149,8 +149,8 @@ $('#form-guardar-base').addEventListener('submit', async e => {
   try {
     const respuesta = await fetch('/api/jugadores', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${$('#clave-guardar-base').value}` },
-      body: JSON.stringify(base)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ claveAdmin: $('#clave-guardar-base').value, jugadores: base })
     });
     const datos = await respuesta.json().catch(() => ({}));
     if (!respuesta.ok) throw new Error(datos.error || 'No se pudo guardar la base.');
